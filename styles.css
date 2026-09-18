@@ -20,7 +20,7 @@ h2 { font-size:clamp(1.9rem, 6vw, 2.8rem); }
 .gallery-top-left { top:14px; left:3%; } .gallery-top-right { top:8px; right:3%; }
 .gallery-mid-left { top:222px; left:1%; } .gallery-mid-right { top:216px; right:1%; }
 .gallery-bottom-left { bottom:7px; left:4%; } .gallery-bottom-right { bottom:4px; right:4%; }
-.gallery-main { z-index:1; top:18px; left:50%; width:58%; margin-left:-29%; aspect-ratio:9 / 16; transform:none; border-color:#fff8fb; box-shadow:0 14px 32px rgba(217,79,132,.24); }
+.gallery-main { z-index:1; top:18px; left:50%; left:0; right:0; width:58%; margin-left:auto; margin-right:auto; aspect-ratio:9 / 16; transform:none; border-color:#fff8fb; box-shadow:0 14px 32px rgba(217,79,132,.24); }
 .gallery-main img { object-position:center 42%; }
 figcaption { padding:11px 4px 0; color:#a8758e; text-align:center; font-size:.83rem; }
 .letter { padding:17px 18px; border-left:3px solid #f5b8cf; border-radius:0 16px 16px 0; background:#fff7fa; color:#765768; font-size:.97rem; line-height:1.8; }
@@ -60,4 +60,4 @@ input { width:100%; border:1px solid var(--line); border-radius:14px; padding:13
 .copy-status { min-height:20px; margin:10px 0 0; color:var(--rose-dark); text-align:center; font-size:.84rem; }
 .ambient { position:fixed; z-index:-1; color:#f3aec6; opacity:.65; font-family:Georgia,serif; animation:float 5s ease-in-out infinite; } .ambient-one{top:18%;left:7%;font-size:50px}.ambient-two{top:14%;right:8%;font-size:30px;animation-delay:1s}.ambient-three{bottom:14%;left:10%;font-size:38px;animation-delay:2s}
 @keyframes float { 50%{transform:translateY(-13px) rotate(8deg);opacity:.35} }
-@media (max-width:560px) { .shell{padding-top:18px}.card{padding:23px 17px 22px;border-radius:24px}.planner-grid,.food-grid{grid-template-columns:1fr}.photo-frame{padding:10px}.photo-gallery{height:455px}.gallery-card{width:76px;border-width:3px;border-radius:12px}.gallery-top-left{top:8px;left:0}.gallery-top-right{top:4px;right:0}.gallery-mid-left{top:164px;left:0}.gallery-mid-right{top:159px;right:0}.gallery-bottom-left{bottom:4px;left:2%}.gallery-bottom-right{bottom:1px;right:2%}.gallery-main{top:16px;width:66%;margin-left:-33%}.letter{font-size:.92rem} }
+@media (max-width:560px) { .shell{padding-top:18px}.card{padding:23px 17px 22px;border-radius:24px}.planner-grid,.food-grid{grid-template-columns:1fr}.photo-frame{padding:10px}.photo-gallery{height:455px}.gallery-card{width:76px;border-width:3px;border-radius:12px}.gallery-top-left{top:8px;left:0}.gallery-top-right{top:4px;right:0}.gallery-mid-left{top:164px;left:0}.gallery-mid-right{top:159px;right:0}.gallery-bottom-left{bottom:4px;left:2%}.gallery-bottom-right{bottom:1px;right:2%}.gallery-main{top:16px;left:0;right:0;width:66%;margin-left:auto;margin-right:auto}.letter{font-size:.92rem} }
