@@ -24,6 +24,43 @@ const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 let calendarMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 let selectedDate = new Date(today);
 let selectedFood = '';
+let initialChoice = '';
+let interactionLog = [];
+
+try {
+  interactionLog = JSON.parse(sessionStorage.getItem('love-oanh-interactions') || '[]');
+  initialChoice = sessionStorage.getItem('love-oanh-initial-choice') || '';
+} catch {
+  interactionLog = [];
+}
+
+function recordInteraction(type, choice) {
+  const event = { type, choice, at: new Date().toISOString() };
+  interactionLog.push(event);
+  try {
+    sessionStorage.setItem('love-oanh-interactions', JSON.stringify(interactionLog));
+  } catch {
+    // Tracking is optional; the booking can still be completed if storage is blocked.
+  }
+}
+
+function rememberInitialChoice(choice) {
+  if (initialChoice) return;
+  initialChoice = choice;
+  try {
+    sessionStorage.setItem('love-oanh-initial-choice', initialChoice);
+  } catch {
+    // Tracking is optional; the booking can still be completed if storage is blocked.
+  }
+}
+
+function interactionSummary() {
+  const firstChoice = initialChoice || 'Chưa xác định';
+  const events = interactionLog.length
+    ? interactionLog.map((event) => `${event.type}: ${event.choice} (${event.at})`).join('\n')
+    : 'Chưa ghi nhận được thao tác hover.';
+  return `Lựa chọn ban đầu: ${firstChoice}\nNhật ký thao tác:\n${events}`;
+}
 
 function formatVietnameseDate(date) {
   return new Intl.DateTimeFormat('vi-VN', { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' }).format(date);
@@ -64,7 +101,15 @@ function showPlan() {
   renderCalendar();
 }
 
-yesButton.addEventListener('click', showPlan);
+yesButton.addEventListener('pointerenter', () => {
+  rememberInitialChoice('Dạ có 💖');
+  recordInteraction('hover', 'Dạ có 💖');
+});
+yesButton.addEventListener('click', () => {
+  rememberInitialChoice('Dạ có 💖');
+  recordInteraction('click', 'Dạ có 💖');
+  showPlan();
+});
 
 let moveCount = 0;
 let isJumping = false;
@@ -88,14 +133,20 @@ function runNextJump() {
   window.setTimeout(runNextJump, 430);
 }
 
-maybeButton.addEventListener('pointerenter', () => {
+maybeButton.addEventListener('mouseenter', () => {
+  rememberInitialChoice('Dạ kó');
+  recordInteraction('hover', 'Dạ kó');
   if (isJumping) return;
   if (moveCount < 3) {
     isJumping = true;
     runNextJump();
   }
 });
-maybeButton.addEventListener('click', () => { if (moveCount >= 4) showPlan(); });
+maybeButton.addEventListener('click', () => {
+  rememberInitialChoice('Dạ kó');
+  recordInteraction('click', 'Dạ kó');
+  if (moveCount >= 4) showPlan();
+});
 
 prevMonth.addEventListener('click', () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1); renderCalendar(); });
 nextMonth.addEventListener('click', () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1); renderCalendar(); });
@@ -113,7 +164,7 @@ confirmButton.addEventListener('click', () => {
     errorMessage.textContent = 'Em chọn ngày, giờ và một món nha 💕';
     return;
   }
-  const bookingText = `Ngày: ${formatVietnameseDate(selectedDate)}\nGiờ: ${timeInput.value}\nMón: ${selectedFood}`;
+  const bookingText = `Ngày: ${formatVietnameseDate(selectedDate)}\nGiờ: ${timeInput.value}\nMón: ${selectedFood}\n\n${interactionSummary()}`;
   bookingSummary.innerHTML = `<div>📅 <strong>${formatVietnameseDate(selectedDate)}</strong></div><div>⏰ ${timeInput.value}</div><div>🍽️ <strong>${selectedFood}</strong></div>`;
   confirmButton.disabled = true;
   planScreen.hidden = true;
@@ -122,9 +173,10 @@ confirmButton.addEventListener('click', () => {
   sendButton.disabled = false;
   sendStatus.textContent = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  void sendBookingEmail();
 });
 
-sendButton.addEventListener('click', async () => {
+async function sendBookingEmail() {
   const booking = finalScreen.dataset.booking;
   if (!booking || sendButton.disabled) return;
 
@@ -135,7 +187,7 @@ sendButton.addEventListener('click', async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        _subject: 'Có người vừa chốt kèo hẹn hò 💗',
+        _subject: 'Có người vừa xác nhận lựa chọn hẹn hò 💗',
         _template: 'table',
         _captcha: 'false',
         ket_qua_lua_chon: booking,
@@ -145,9 +197,12 @@ sendButton.addEventListener('click', async () => {
     sendStatus.textContent = 'Đã gửi lựa chọn thành công rồi nha 💗';
   } catch {
     sendButton.disabled = false;
+    sendButton.textContent = 'Gửi lại lựa chọn cho anh 💌';
     sendStatus.textContent = 'Chưa gửi được tự động. Em bấm nút sao chép để gửi lại cho anh nha 💕';
   }
-});
+}
+
+sendButton.addEventListener('click', sendBookingEmail);
 
 copyButton.addEventListener('click', async () => {
   try {
@@ -159,3 +214,4 @@ copyButton.addEventListener('click', async () => {
 });
 
 renderCalendar();
+
