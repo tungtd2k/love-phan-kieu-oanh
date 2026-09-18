@@ -26,17 +26,52 @@ let selectedDate = new Date(today);
 let selectedFood = '';
 let initialChoice = '';
 let interactionLog = [];
+let visitNotificationSent = false;
+let visitNotificationInFlight = false;
 
 try {
   interactionLog = JSON.parse(sessionStorage.getItem('love-oanh-interactions') || '[]');
   initialChoice = sessionStorage.getItem('love-oanh-initial-choice') || '';
+  visitNotificationSent = sessionStorage.getItem('love-oanh-visit-notified') === '1';
 } catch {
   interactionLog = [];
+}
+
+async function sendVisitNotification(type, choice) {
+  if (visitNotificationSent || visitNotificationInFlight) return;
+  visitNotificationInFlight = true;
+  try {
+    const response = await fetch(`https://formsubmit.co/ajax/${resultRecipient}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        _subject: 'Có người vừa vào trang của bạn 💌',
+        _template: 'table',
+        _captcha: 'false',
+        thong_bao: 'Có người vừa mở trang và bắt đầu tương tác.',
+        thao_tac_dau_tien: type,
+        nut_dau_tien: choice,
+        thoi_gian: new Date().toLocaleString('vi-VN'),
+      }),
+    });
+    if (!response.ok) throw new Error('visit_notification_failed');
+    visitNotificationSent = true;
+    try {
+      sessionStorage.setItem('love-oanh-visit-notified', '1');
+    } catch {
+      // The in-memory flag still prevents duplicate notifications in this visit.
+    }
+  } catch {
+    // The booking flow should continue even if the optional visit notice fails.
+  } finally {
+    visitNotificationInFlight = false;
+  }
 }
 
 function recordInteraction(type, choice) {
   const event = { type, choice, at: new Date().toISOString() };
   interactionLog.push(event);
+  void sendVisitNotification(type, choice);
   try {
     sessionStorage.setItem('love-oanh-interactions', JSON.stringify(interactionLog));
   } catch {
