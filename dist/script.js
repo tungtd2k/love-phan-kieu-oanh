@@ -112,39 +112,29 @@ yesButton.addEventListener('click', () => {
 });
 
 let moveCount = 0;
-let isJumping = false;
 const escapePositions = [
   'translate(118px, -30px) rotate(-5deg)',
   'translate(-92px, 26px) rotate(4deg)',
   'translate(72px, 40px) rotate(-3deg)',
 ];
 
-function runNextJump() {
-  if (moveCount >= 3) {
-    isJumping = false;
-    moveCount = 4;
-    maybeButton.textContent = 'Dạ kó';
-    maybeButton.style.transform = 'none';
+maybeButton.addEventListener('mouseenter', () => {
+  const currentLabel = maybeButton.textContent;
+  rememberInitialChoice('Em suy nghĩ đã 🙈');
+  recordInteraction('hover', currentLabel);
+  if (moveCount >= 4) return;
+  moveCount += 1;
+  if (moveCount <= 3) {
+    maybeButton.style.transform = escapePositions[moveCount - 1];
+    maybeButton.textContent = moveCount === 3 ? 'Đồng ý đi mà 🥺' : 'Em suy nghĩ đã 🙈';
     return;
   }
-  moveCount += 1;
-  maybeButton.style.transform = escapePositions[moveCount - 1];
-  maybeButton.textContent = ['Ơ, bắt hụt rồi 😳', 'Né nhẹ thôi nha 🙈', 'Đừng để anh chờ lâu nhé 🥺'][moveCount - 1];
-  window.setTimeout(runNextJump, 430);
-}
-
-maybeButton.addEventListener('mouseenter', () => {
-  rememberInitialChoice('Dạ kó');
-  recordInteraction('hover', 'Dạ kó');
-  if (isJumping) return;
-  if (moveCount < 3) {
-    isJumping = true;
-    runNextJump();
-  }
+  maybeButton.style.transform = 'none';
+  maybeButton.textContent = 'Dạ kó';
 });
 maybeButton.addEventListener('click', () => {
-  rememberInitialChoice('Dạ kó');
-  recordInteraction('click', 'Dạ kó');
+  rememberInitialChoice('Em suy nghĩ đã 🙈');
+  recordInteraction('click', maybeButton.textContent);
   if (moveCount >= 4) showPlan();
 });
 
