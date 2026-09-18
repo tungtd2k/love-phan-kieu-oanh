@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dành riêng cho Phan Kiều Oanh 💌</title>
+    <meta name="description" content="Một lời nhắn nhỏ dành riêng cho Phan Kiều Oanh." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💗%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one">♡</div>
+    <div class="ambient ambient-two">✦</div>
+    <div class="ambient ambient-three">♡</div>
+
+    <main class="shell">
+      <section id="introScreen" class="card screen active" aria-labelledby="introTitle">
+        <span class="eyebrow">Dành riêng cho Phan Kiều Oanh 💌</span>
+        <p class="sender">Người mời: <strong>Đỗ Tiến Tùng</strong></p>
+        <h1 id="introTitle">Anh có điều muốn nói với em...</h1>
+        <p class="lead">Không phải điều gì quá to tát đâu, chỉ là một lời nhắn anh đã nghĩ rất lâu rồi.</p>
+
+        <figure class="photo-frame">
+          <img src="assets/phan-kieu-oanh.jfif" alt="Ảnh của Phan Kiều Oanh" />
+          <figcaption>Một cô bé đáng yêu từ ngày còn bé xíu ✨</figcaption>
+        </figure>
+
+        <div class="letter">
+          <p>Mong em cho anh một cơ hội, để mọi thứ giữa chúng mình được trọn vẹn hơn. Dù kết quả có thế nào, anh vẫn muốn sau này nhìn lại mà không phải tiếc vì đã bỏ lỡ điều mình thật sự tin là có thể.</p>
+          <p>Anh sẽ cố gắng hết sức, còn em chỉ cần tin anh lần này thôi... Em có cho anh cơ hội nhé?</p>
+        </div>
+
+        <p class="question">Hôm tới mình đi ăn đi chơi với nhau được không? 🍜🌷</p>
+
+        <div class="actions" id="actionArea">
+          <button class="button button-primary" id="yesButton" type="button">Dạ có 💖</button>
+          <button class="button button-ghost" id="maybeButton" type="button">Để em nghĩ đã 🙈</button>
+        </div>
+        <p class="hint" id="hintText">Em cứ chọn thật lòng nha, anh vẫn ở đây nghe em nói.</p>
+      </section>
+
+      <section id="planScreen" class="card screen" aria-labelledby="planTitle" hidden>
+        <span class="eyebrow">Mình chốt kèo thôi nào ✨</span>
+        <h2 id="planTitle">Hôm tới mình đi ăn đi chơi nhé?</h2>
+        <p class="lead">Em chọn ngày, giờ và món em thích. Anh chiều em hết luôn 💕</p>
+
+        <div class="planner-grid">
+          <div class="calendar-box">
+            <div class="calendar-head"><button class="calendar-nav" id="prevMonth" type="button" aria-label="Tháng trước">‹</button><strong id="monthLabel"></strong><button class="calendar-nav" id="nextMonth" type="button" aria-label="Tháng sau">›</button></div>
+            <div class="weekday-row"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+          </div>
+          <label class="field time-field"><span>Chọn giờ</span><input id="timeInput" type="time" value="18:30" /></label>
+        </div>
+
+        <div class="menu-heading">
+          <span>Chọn món em muốn ăn</span>
+          <small>Chọn một món em thích nha 🍽️</small>
+        </div>
+        <div class="food-grid" id="foodGrid">
+          <button class="food-card" type="button" data-food="Bún r iêu">
+            <span class="food-icon">🍲</span><span><strong>Bún r iêu</strong><small>Nhẹ nhàng mà đậm đà, đúng kiểu mình ngồi nói chuyện thật lâu</small></span>
+          </button>
+          <button class="food-card" type="button" data-food="Dokki">
+            <span class="food-icon">🍢</span><span><strong>Dokki</strong><small>Ăn cay một chút để buổi hẹn thêm nhiều tiếng cười</small></span>
+          </button>
+          <button class="food-card" type="button" data-food="Đồ nướng">
+            <span class="food-icon">🥩</span><span><strong>Đồ nướng</strong><small>Cùng nướng, cùng gắp, cùng vui đến no bụng</small></span>
+          </button>
+          <button class="food-card" type="button" data-food="Lẩu">
+            <span class="food-icon">🍲</span><span><strong>Lẩu</strong><small>Ngồi lâu nói chuyện, vừa ấm bụng vừa ấm lòng</small></span>
+          </button>
+          <button class="food-card" type="button" data-food="Mỳ cay">
+            <span class="food-icon">🍜</span><span><strong>Mỳ cay</strong><small>Cay một chút cho buổi hẹn thêm nhiều kỷ niệm</small></span>
+          </button>
+          <button class="food-card" type="button" data-food="Món em thích">
+            <span class="food-icon">🍜</span><span><strong>Món em thích</strong><small>Em chọn gì cũng được, miễn là em thấy vui</small></span>
+          </button>
+          <button class="food-card" type="button" data-food="Món khác nữa">
+            <span class="food-icon">✨</span><span><strong>Món khác nữa</strong><small>Nếu em đang thèm món khác thì cứ ghi nhớ để mình chọn nha</small></span>
+          </button>
+        </div>
+
+        <button class="button button-primary confirm-button" id="confirmButton" type="button">Xác nhận lựa chọn 💗</button>
+        <p class="error-message" id="errorMessage" role="alert" aria-live="polite"></p>
+      </section>
+
+      <section id="finalScreen" class="card screen final-screen" aria-labelledby="finalTitle" hidden>
+        <span class="eyebrow">Chốt kèo thành công 💗</span>
+        <h2 id="finalTitle">Vậy là mình có hẹn rồi nha!</h2>
+        <p class="lead">Anh đã ghi lại lựa chọn của em để hai đứa cùng nhớ kèo này ✨</p>
+        <div class="booking-summary" id="bookingSummary"></div>
+        <p class="delivery-note">Lựa chọn sẽ được gửi tự động để anh biết mình đã chốt kèo nha 💌</p>
+        <button class="button button-primary" id="sendButton" type="button">Gửi lựa chọn cho anh 💌</button>
+        <p class="send-status" id="sendStatus" aria-live="polite"></p>
+        <button class="button button-primary" id="copyButton" type="button">Sao chép lựa chọn 💌</button>
+        <p class="copy-status" id="copyStatus" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

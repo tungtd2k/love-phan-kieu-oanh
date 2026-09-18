@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Pacifico&display=swap');
+
+:root { --ink:#4d3042; --muted:#876b7a; --rose:#ef6c9d; --rose-dark:#d94f84; --pink:#fff1f6; --line:#f4d7e4; --white:#fffdfd; }
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; color:var(--ink); font-family:'Be Vietnam Pro',system-ui,sans-serif; background:radial-gradient(circle at 15% 12%, #ffe0ec 0 12%, transparent 28%), radial-gradient(circle at 87% 88%, #f8d7e9 0 10%, transparent 30%), #fff6fa; overflow-x:hidden; }
+.shell { width:min(100% - 28px, 660px); margin:0 auto; padding:36px 0 54px; }
+.card { position:relative; padding:30px 28px 28px; border:1px solid rgba(255,255,255,.9); border-radius:30px; background:rgba(255,253,253,.86); box-shadow:0 22px 60px rgba(165,83,121,.15); backdrop-filter:blur(8px); }
+.screen[hidden] { display:none; }
+.eyebrow { display:inline-flex; padding:9px 15px; border:1px solid #f3c9da; border-radius:999px; color:var(--rose-dark); background:#fff8fb; font-size:.84rem; font-weight:800; }
+.sender { margin:13px 0 -7px; color:#a8758e; font-size:.86rem; }
+h1,h2 { margin:21px 0 12px; line-height:1.16; letter-spacing:-.04em; font-size:clamp(2rem, 7vw, 3.25rem); }
+h2 { font-size:clamp(1.9rem, 6vw, 2.8rem); }
+.lead { margin:0 0 22px; color:var(--muted); line-height:1.75; font-size:1rem; }
+.photo-frame { margin:22px 0; padding:12px 12px 15px; border:1px solid var(--line); border-radius:22px; background:#fff; box-shadow:0 12px 30px rgba(173,91,126,.10); }
+.photo-frame img { display:block; width:100%; max-height:520px; object-fit:cover; object-position:center 30%; border-radius:15px; }
+figcaption { padding:11px 4px 0; color:#a8758e; text-align:center; font-size:.83rem; }
+.letter { padding:17px 18px; border-left:3px solid #f5b8cf; border-radius:0 16px 16px 0; background:#fff7fa; color:#765768; font-size:.97rem; line-height:1.8; }
+.letter p { margin:0; } .letter p + p { margin-top:10px; }
+.question { margin:23px 0 17px; text-align:center; font-weight:700; font-size:1.05rem; }
+.actions { display:flex; flex-wrap:wrap; justify-content:center; gap:11px; min-height:54px; }
+.button { border:0; border-radius:999px; padding:14px 22px; font:inherit; font-weight:800; cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, background .2s ease; }
+.button:hover { transform:translateY(-2px); } .button:focus-visible,.food-card:focus-visible,input:focus-visible { outline:3px solid #f7a5c5; outline-offset:3px; }
+.button-primary { color:white; background:linear-gradient(135deg, var(--rose), #f39aaf); box-shadow:0 10px 22px rgba(230,94,143,.25); }
+.button-primary:hover { background:linear-gradient(135deg,var(--rose-dark),#ed829d); }
+.button-ghost { color:#a55e7b; border:1px solid #efc5d7; background:#fff7fa; }
+.hint { margin:14px 0 0; color:#b18b9c; text-align:center; font-size:.82rem; }
+.planner-grid { display:grid; grid-template-columns:1.25fr .75fr; gap:13px; margin:20px 0 23px; }
+.field span,.menu-heading span { display:block; margin-bottom:8px; font-weight:800; font-size:.88rem; }
+input { width:100%; border:1px solid var(--line); border-radius:14px; padding:13px 14px; color:var(--ink); background:#fff; font:inherit; }
+.calendar-box { padding:14px; border:1px solid var(--line); border-radius:18px; background:#fff; }
+.calendar-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:13px; font-size:.9rem; }
+.calendar-nav { width:31px; height:31px; border:0; border-radius:50%; color:var(--rose-dark); background:#fff0f6; font-size:1.5rem; line-height:1; cursor:pointer; }
+.calendar-nav:disabled { opacity:.35; cursor:not-allowed; }
+.weekday-row,.calendar-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; text-align:center; }
+.weekday-row { margin-bottom:6px; color:#a8758e; font-size:.7rem; font-weight:800; }
+.calendar-day { min-height:31px; border:0; border-radius:9px; color:var(--ink); background:transparent; font:inherit; font-size:.78rem; cursor:pointer; }
+.calendar-day:hover:not(:disabled),.calendar-day.selected { color:#fff; background:var(--rose); }
+.calendar-day:disabled { color:#d8c7d0; cursor:not-allowed; }
+.calendar-day.empty { pointer-events:none; }
+.time-field { align-self:start; }
+.menu-heading { margin-bottom:12px; } .menu-heading small { color:#a47b90; font-size:.8rem; }
+.food-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+.food-card { display:flex; align-items:flex-start; gap:10px; min-height:110px; padding:14px; border:1px solid var(--line); border-radius:18px; color:var(--ink); text-align:left; background:#fff; cursor:pointer; transition:.2s ease; }
+.food-card:hover { border-color:#ed9cbb; transform:translateY(-2px); } .food-card.selected { border-color:var(--rose); background:#fff0f6; box-shadow:0 8px 20px rgba(230,94,143,.13); }
+.food-icon { font-size:1.55rem; line-height:1; } .food-card strong,.food-card small { display:block; } .food-card strong { margin-bottom:5px; font-size:.95rem; } .food-card small { color:var(--muted); line-height:1.45; font-size:.76rem; }
+.confirm-button { display:block; width:100%; margin-top:22px; } .error-message { min-height:20px; margin:10px 0 0; color:#c55270; text-align:center; font-size:.84rem; }
+.success-message { margin-top:18px; padding:16px; border-radius:17px; color:#6d3d55; background:#fff3f7; line-height:1.65; text-align:center; }
+.booking-summary { padding:20px; border-radius:18px; background:#fff3f7; color:#6d3d55; line-height:1.9; text-align:center; font-size:1.05rem; }
+.booking-summary strong { color:var(--rose-dark); }
+.delivery-note { margin:16px 0; color:#a8758e; text-align:center; font-size:.82rem; line-height:1.6; }
+.copy-status { min-height:20px; margin:10px 0 0; color:var(--rose-dark); text-align:center; font-size:.84rem; }
+.ambient { position:fixed; z-index:-1; color:#f3aec6; opacity:.65; font-family:Georgia,serif; animation:float 5s ease-in-out infinite; } .ambient-one{top:18%;left:7%;font-size:50px}.ambient-two{top:14%;right:8%;font-size:30px;animation-delay:1s}.ambient-three{bottom:14%;left:10%;font-size:38px;animation-delay:2s}
+@keyframes float { 50%{transform:translateY(-13px) rotate(8deg);opacity:.35} }
+@media (max-width:560px) { .shell{padding-top:18px}.card{padding:23px 17px 22px;border-radius:24px}.planner-grid,.food-grid{grid-template-columns:1fr}.photo-frame img{max-height:440px}.letter{font-size:.92rem} }
