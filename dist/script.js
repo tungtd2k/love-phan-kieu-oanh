@@ -3,7 +3,6 @@ const planScreen = document.querySelector('#planScreen');
 const finalScreen = document.querySelector('#finalScreen');
 const yesButton = document.querySelector('#yesButton');
 const maybeButton = document.querySelector('#maybeButton');
-const hintText = document.querySelector('#hintText');
 const timeInput = document.querySelector('#timeInput');
 const calendarGrid = document.querySelector('#calendarGrid');
 const monthLabel = document.querySelector('#monthLabel');
@@ -78,12 +77,14 @@ const escapePositions = [
 function runNextJump() {
   if (moveCount >= 3) {
     isJumping = false;
-    maybeButton.textContent = 'Có đi mà <3';
-    hintText.textContent = 'Nó chạy đủ 3 lần rồi đó... em chạm thêm lần nữa nha 🙈';
+    moveCount = 4;
+    maybeButton.textContent = 'Mình chốt nha 💗';
+    maybeButton.style.transform = 'none';
     return;
   }
   moveCount += 1;
   maybeButton.style.transform = escapePositions[moveCount - 1];
+  maybeButton.textContent = ['Ơ, bắt hụt rồi 😳', 'Né nhẹ thôi nha 🙈', 'Đừng để anh chờ lâu nhé 🥺'][moveCount - 1];
   window.setTimeout(runNextJump, 430);
 }
 
@@ -91,13 +92,7 @@ maybeButton.addEventListener('pointerenter', () => {
   if (isJumping) return;
   if (moveCount < 3) {
     isJumping = true;
-    hintText.textContent = 'Ơ, em vừa chạm vào là nút này lại trốn rồi đó 🙈';
     runNextJump();
-  } else if (moveCount === 3) {
-    moveCount = 4;
-    maybeButton.textContent = 'Dạ kó';
-    maybeButton.style.transform = 'none';
-    hintText.textContent = 'Đúng rồi, nút đã về chỗ cũ. Bấm vào để mình chốt kèo nha 💗';
   }
 });
 maybeButton.addEventListener('click', () => { if (moveCount >= 4) showPlan(); });
