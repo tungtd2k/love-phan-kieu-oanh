@@ -112,28 +112,48 @@ yesButton.addEventListener('click', () => {
 });
 
 let moveCount = 0;
+let skipClickAfterTouch = false;
 const escapePositions = [
   'translate(118px, -30px) rotate(-5deg)',
   'translate(-92px, 26px) rotate(4deg)',
   'translate(72px, 40px) rotate(-3deg)',
 ];
 
-maybeButton.addEventListener('mouseenter', () => {
+function advanceMaybeButton(eventType) {
   const currentLabel = maybeButton.textContent;
-  rememberInitialChoice('Em suy nghĩ đã 🙈');
-  recordInteraction('hover', currentLabel);
+  rememberInitialChoice('Em suy nghĩ đã');
+  recordInteraction(eventType, currentLabel);
   if (moveCount >= 4) return;
   moveCount += 1;
   if (moveCount <= 3) {
     maybeButton.style.transform = escapePositions[moveCount - 1];
-    maybeButton.textContent = moveCount === 3 ? 'Đồng ý đi mà 🥺' : 'Em suy nghĩ đã 🙈';
+    maybeButton.textContent = moveCount === 3 ? 'đồng ý đi mà' : 'Em suy nghĩ đã';
     return;
   }
   maybeButton.style.transform = 'none';
   maybeButton.textContent = 'Dạ kó';
+}
+
+maybeButton.addEventListener('mouseenter', () => {
+  advanceMaybeButton('hover');
 });
+maybeButton.addEventListener('touchstart', (event) => {
+  event.preventDefault();
+  skipClickAfterTouch = true;
+  if (moveCount >= 4) {
+    rememberInitialChoice('Em suy nghĩ đã');
+    recordInteraction('tap', maybeButton.textContent);
+    showPlan();
+    return;
+  }
+  advanceMaybeButton('tap');
+}, { passive: false });
 maybeButton.addEventListener('click', () => {
-  rememberInitialChoice('Em suy nghĩ đã 🙈');
+  if (skipClickAfterTouch) {
+    skipClickAfterTouch = false;
+    return;
+  }
+  rememberInitialChoice('Em suy nghĩ đã');
   recordInteraction('click', maybeButton.textContent);
   if (moveCount >= 4) showPlan();
 });
