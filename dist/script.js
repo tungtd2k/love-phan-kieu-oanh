@@ -78,7 +78,7 @@ function runNextJump() {
   if (moveCount >= 3) {
     isJumping = false;
     moveCount = 4;
-    maybeButton.textContent = 'Mình chốt nha 💗';
+    maybeButton.textContent = 'Dạ có 💗';
     maybeButton.style.transform = 'none';
     return;
   }
